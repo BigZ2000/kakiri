@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro"  name="GUELADAN">
+
+    <xacro:include filename="chassis.urdf.xacro" />
+    <xacro:include filename="chassis_top.urdf.xacro" />
+    <xacro:include filename="chassis_bar.urdf.xacro" />
+	<gazebo>
+		<plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+		  <robotNamespace>/</robotNamespace>
+		</plugin>
+	</gazebo>
+    
+</robot>

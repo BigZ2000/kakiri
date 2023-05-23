@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+	<xacro:include filename="inertial_macros.xacro"/>
+
+	<xacro:property name="robot_height" value="0.35" />
+
+	<xacro:macro name="chassis_bar" params="position_1 position_2 x y z">
+		<joint name="base_chassis_bar_${position_1}_${position_2}_joint" type="fixed">
+			<parent link="base_bar_link"/>
+			<child link="base_chassis_bar_${position_1}_${position_2}"/>
+			<origin rpy="0 0 0" xyz="${x} ${y} ${z}"/>
+		</joint>
+
+		<link name="base_chassis_bar_${position_1}_${position_2}">
+		<visual>
+		  <geometry>
+			<box size="0.06 0.04 0.31"/>
+		  </geometry>
+		  <origin rpy="0 0 0" xyz="0 0 0"/>
+		  <material name="white"/>
+		</visual>
+		<collision>
+			<geometry>
+				<box size="0.06 0.04 0.31"/>
+			</geometry>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+		</collision>
+		<xacro:inertial_box mass="0.93" x="0.06" y="0.04" z="0.31">
+		  <origin rpy="0 0 0" xyz="0 0 0"/>
+		</xacro:inertial_box>
+		</link>
+	</xacro:macro>
+
+	<joint name="base_bar_join" type="fixed">
+		<parent link="base_link"/>
+		<child link="base_bar_link"/>
+		<origin rpy="0 0 0" xyz="0 0 ${robot_height/2}"/>
+	</joint>
+	<link name="base_bar_link"></link>
+
+	<xacro:chassis_bar position_1="front" position_2="left" x="0.415" y="0.13" z="0" />
+	<xacro:chassis_bar position_1="front" position_2="right" x="0.415" y="-0.13" z="0" />
+	
+	<xacro:chassis_bar position_1="back_2" position_2="left" x="0.2254" y="0.28" z="0" />
+	<xacro:chassis_bar position_1="back_2" position_2="right" x="0.2254" y="-0.28" z="0" />
+	
+	<xacro:chassis_bar position_1="back_1" position_2="left" x="-0.1346" y="0.28" z="0" />
+	<xacro:chassis_bar position_1="back_1" position_2="right" x="-0.1346" y="-0.28" z="0" />
+	
+	<xacro:chassis_bar position_1="back" position_2="left" x="-0.325" y="0.28" z="0" />
+	<xacro:chassis_bar position_1="back" position_2="right" x="-0.325" y="-0.28" z="0" />
+</robot>
+

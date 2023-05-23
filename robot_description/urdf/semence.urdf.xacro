@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+	<xacro:include filename="inertial_macros.xacro"/>
+
+	<xacro:property name="robot_height" value="0.35" />
+
+	<xacro:macro name="rail" params="position x y z">
+		<joint name="semence_base_${position}_joint" type="fixed">
+			<parent link="semence_base_link"/>
+			<child link="semence_base_${position}_link"/>
+			<origin rpy="0 0 0" xyz="${x} ${y} ${z}"/>
+		</joint>
+
+		<link name="semence_base_${position}_link">
+		<visual>
+		  <geometry>
+			<box size="0.02 0.02 0.31"/>
+		  </geometry>
+		  <origin rpy="0 0 0" xyz="0 0 0"/>
+		  <material name="blue"/>
+		</visual>
+		<collision>
+			<geometry>
+				<box size="0.02 0.02 0.31"/>
+			</geometry>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+		</collision>
+		<xacro:inertial_box mass="0.15" x="0.02" y="0.02" z="0.31">
+		  <origin rpy="0 0 0" xyz="0 0 0"/>
+		</xacro:inertial_box>
+		</link>
+	</xacro:macro>
+
+	<xacro:macro name="semence_plate" params="x y z">
+		<joint name="semence_base_$_joint" type="fixed">
+			<parent link="semence_base_link"/>
+			<child link="semence_base_${}_link"/>
+			<origin rpy="0 0 0" xyz="${x} ${y} ${z}"/>
+		</joint>
+
+		<link name="semence_base_${}_link">
+		<visual>
+		  <geometry>
+			<box size="0.02 0.02 0.31"/>
+		  </geometry>
+		  <origin rpy="0 0 0" xyz="0 0 0"/>
+		  <material name="blue"/>
+		</visual>
+		<collision>
+			<geometry>
+				<box size="0.02 0.02 0.31"/>
+			</geometry>
+			<origin rpy="0 0 0" xyz="0 0 0"/>
+		</collision>
+		<xacro:inertial_box mass="0.15" x="0.02" y="0.02" z="0.31">
+		  <origin rpy="0 0 0" xyz="0 0 0"/>
+		</xacro:inertial_box>
+		</link>
+	</xacro:macro>
+
+	<joint name="semence_base_join" type="fixed">
+		<parent link="base_link"/>
+		<child link="semence_base_link"/>
+		<origin rpy="0 0 0" xyz="0 0 ${robot_height/2}"/>
+	</joint>
+	<link name="semence_base_link"></link>
+
+	<xacro:rail position="left" x="0.2554" y="0.05" z="0" />
+	<xacro:rail position="right" x="0.2554" y="-0.5" z="0" />
+
+	
+	
+	
+</robot>
+
